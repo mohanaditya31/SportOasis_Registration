@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SportOasis 2026 — Team Registration</title>
+  <meta name="description" content="Register your university's teams for SportOasis 2026 at IIT Delhi Abu Dhabi." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">IIT Delhi Abu Dhabi</p>
+      <h1>SportOasis <span>2026</span></h1>
+      <p class="lede">Team registration. Register <strong>one team per submission</strong> — after submitting you can register another sport without re-entering your university details.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <form id="reg-form" novalidate>
+      <!-- Honeypot: hidden from people, bots fill it -->
+      <div class="hp" aria-hidden="true">
+        <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+      </div>
+
+      <section class="card" aria-labelledby="s1">
+        <div class="card-head">
+          <span class="step">01</span>
+          <h2 id="s1">University details</h2>
+        </div>
+        <div class="grid">
+          <label class="field full">
+            <span>University name</span>
+            <input name="university" required autocomplete="organization" />
+          </label>
+          <label class="field full">
+            <span>Overall sports coordinator — full name</span>
+            <input name="coordName" required autocomplete="name" />
+          </label>
+          <label class="field">
+            <span>Coordinator mobile</span>
+            <input name="coordPhone" type="tel" required placeholder="+971 50 123 4567" autocomplete="tel" />
+          </label>
+          <label class="field">
+            <span>Coordinator email</span>
+            <input name="coordEmail" type="email" required autocomplete="email" />
+          </label>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="s2">
+        <div class="card-head">
+          <span class="step">02</span>
+          <h2 id="s2">Sport</h2>
+        </div>
+        <p class="hint">Which sport are you registering this team for?</p>
+        <div id="sport-options" class="sports" role="radiogroup" aria-labelledby="s2"></div>
+      </section>
+
+      <section class="card" id="team-section" aria-labelledby="s3" hidden>
+        <div class="card-head">
+          <span class="step">03</span>
+          <h2 id="s3"><span id="sport-title"></span> — team details</h2>
+        </div>
+
+        <h3 class="sub">Captain</h3>
+        <div class="grid">
+          <label class="field full">
+            <span>Captain full name</span>
+            <input name="capName" required />
+          </label>
+          <label class="field">
+            <span>Captain mobile</span>
+            <input name="capPhone" type="tel" required placeholder="+971 50 123 4567" />
+          </label>
+          <label class="field">
+            <span>Captain email</span>
+            <input name="capEmail" type="email" required />
+          </label>
+          <label class="field">
+            <span>Captain college ID</span>
+            <input name="capCollegeId" required placeholder="KU20231234" />
+          </label>
+          <div class="field id-field" data-prefix="cap"></div>
+        </div>
+
+        <div class="roster-head">
+          <h3 class="sub">Other players</h3>
+          <p class="count" id="roster-count" aria-live="polite"></p>
+        </div>
+        <p class="hint">Use the Emirates ID number. Switch to passport only if the player has no Emirates ID.</p>
+        <ol id="players" class="players"></ol>
+        <button type="button" id="add-player" class="btn ghost">+ Add player</button>
+      </section>
+
+      <div id="form-errors" class="errors" role="alert" hidden></div>
+
+      <div class="actions">
+        <button type="submit" id="submit" class="btn primary">Submit registration</button>
+        <p class="hint small">By submitting you confirm the details are accurate and the players are enrolled students of your university.</p>
+      </div>
+    </form>
+
+    <section id="success" class="card success" hidden aria-live="polite">
+      <p class="eyebrow">Registration received</p>
+      <h2 id="success-title"></h2>
+      <p>Your reference is <code id="success-ref"></code>. Keep it for any changes or queries.</p>
+      <p id="success-dup" class="warn" hidden>Note: we already have a registration from your university for this sport. If this was a correction, please let the organisers know which one to keep.</p>
+      <div class="actions">
+        <button type="button" id="another" class="btn primary">Register another sport</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">SportOasis 2026 · IIT Delhi Abu Dhabi</footer>
+
+  <template id="player-tpl">
+    <li class="player">
+      <span class="num"></span>
+      <label class="field"><span>Full name</span><input data-k="name" required /></label>
+      <label class="field"><span>College ID</span><input data-k="collegeId" required /></label>
+      <div class="field id-field"></div>
+      <button type="button" class="remove" aria-label="Remove player">×</button>
+    </li>
+  </template>
+
+  <template id="id-tpl">
+    <span class="id-label">
+      <span class="id-name">Emirates ID</span>
+      <span class="toggle" role="group" aria-label="ID type">
+        <button type="button" data-type="emirates" aria-pressed="true">EID</button>
+        <button type="button" data-type="passport" aria-pressed="false">Passport</button>
+      </span>
+    </span>
+    <input data-k="idNumber" required placeholder="784-2003-1234567-1" inputmode="numeric" />
+  </template>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "sportoasis-registration",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "SportOasis 2026 team registration — static form + Vercel function that writes to Google Sheets",
+  "scripts": {
+    "dev": "node dev.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
